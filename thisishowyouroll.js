@@ -43,6 +43,13 @@ function regenerate_results() {
     process_requirements(inputstring);
 }
 
+// stops buttons from stealing focus
+$(document).ready(function () {
+  $(".btn").click(function(event) {
+    $(this).blur();
+  });
+});
+
 function process_requirements(inputstring) {
     if( inputstring.length == 0 ) {
 //	document.getElementById("diceresults").innerHTML += "Examples: <br>&nbsp&nbsp&nbsp&nbsp?12with4d4+4or2d8+1d6+2or2d12+1d6 <br>" +
