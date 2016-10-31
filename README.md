@@ -1,2 +1,3 @@
-# thisishowyouroll
-Calculator for dnd dice rolls
+# Calculator for DnD dice rolls
+
+Available at [thisishowyouroll.com](http://thisishowyouroll.com)
