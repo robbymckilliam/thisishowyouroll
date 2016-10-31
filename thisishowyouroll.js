@@ -319,8 +319,16 @@ function button_CLEAR() {
     regenerate_results();
 }
 function button_BACK() {
-    var formstring=document.getElementById("rollstring").value.slice(0,-1)
-    document.getElementById("rollstring").value = formstring
+    var s = document.getElementById("rollstring").value
+
+    // removes a character while stripping whitespace
+    while( s[s.length-1 ] == " " ) 
+	s=s.slice(0,-1)
+    s=s.slice(0,-1)
+    while( s[s.length-1 ] == " " ) 
+	s=s.slice(0,-1)
+    
+    document.getElementById("rollstring").value = s
     regenerate_results();
 }
 
