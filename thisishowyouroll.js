@@ -29,7 +29,7 @@ function regenerate_results() {
 		text: 'Probability of success'
 	    },
 	    size: {
-		height: 260
+		height: 240
 	    }
 	});
     }
