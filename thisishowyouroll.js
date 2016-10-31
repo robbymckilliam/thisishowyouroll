@@ -18,16 +18,21 @@
 
 function regenerate_results() {
   // setup plot
-  pmfplot = c3.generate({
-  bindto: '#pmfplot',
-  data: {
-  columns: [],
-  type: 'area-step'
-  },
-  title: {
-  text: 'Probability of success'
-  }
-  });
+    if( plothidden == false ) {
+	pmfplot = c3.generate({
+	    bindto: '#pmfplot',
+	    data: {
+		columns: [],
+		type: 'area-step'
+	    },
+	    title: {
+		text: 'Probability of success'
+	    },
+	    size: {
+		height: 260
+	    }
+	});
+    }
   
     document.getElementById("requiredroll").innerHTML = ""
     document.getElementById("diceresults").innerHTML = ""
