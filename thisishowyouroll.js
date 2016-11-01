@@ -17,7 +17,21 @@
 */
 
 function regenerate_results() {
-  // setup plot
+    document.getElementById("requiredroll").innerHTML = ""
+    document.getElementById("diceresults").innerHTML = ""
+    document.getElementById("bestroll").innerHTML = ""
+
+    // strip whitespace from form string
+    var inputstring = document.getElementById("rollstring").value.replace(/ /g,'')
+
+    if( inputstring.length == 0 ) {
+	set_help_visible();
+	return;
+    }
+
+    set_data_visible();
+    
+    // setup plot
     if( plothidden == false ) {
 	pmfplot = c3.generate({
 	    bindto: '#pmfplot',
@@ -33,14 +47,9 @@ function regenerate_results() {
 	    }
 	});
     }
-  
-    document.getElementById("requiredroll").innerHTML = ""
-    document.getElementById("diceresults").innerHTML = ""
-    document.getElementById("bestroll").innerHTML = ""
 
-    // string whitespace from form string
-    var inputstring = document.getElementById("rollstring").value.replace(/ /g,'')
     process_requirements(inputstring);
+
 }
 
 // stops buttons from stealing focus
@@ -52,9 +61,6 @@ $(document).ready(function () {
 
 function process_requirements(inputstring) {
     if( inputstring.length == 0 ) {
-//	document.getElementById("diceresults").innerHTML += "Examples: <br>&nbsp&nbsp&nbsp&nbsp?12with4d4+4or2d8+1d6+2or2d12+1d6 <br>" +
-//		       "&nbsp&nbsp&nbsp&nbsp?10with1d8+1d6where1is3&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(dogslicer)<br>" +
-//		       "&nbsp&nbsp&nbsp&nbsp?10with4d4iffail2d8+1d4&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(vicious trident)";
 	return;
     } 
 
@@ -242,18 +248,33 @@ function standardDiceProbability(n) {
     return prob;
 }
 
-var plothidden=true
-function button_switch_stats() {
-    console.log("Pressed stats button");
-    if( plothidden == true ) {
+function set_help_visible() {
+    document.getElementById("diceresultsontainer").className="container hidden";
+    document.getElementById("plotcontainer").className="container hidden";
+    document.getElementById("helpcontainer").className="container";
+}
+
+function set_data_visible() {
+    document.getElementById("helpcontainer").className="container hidden";
+    if( plothidden == false ) {
 	document.getElementById("diceresultsontainer").className="container hidden";
 	document.getElementById("plotcontainer").className="container";
-	plothidden = false;
     } else {
 	document.getElementById("plotcontainer").className="container hidden";
 	document.getElementById("diceresultsontainer").className="container";
-	plothidden = true
     }
+}
+
+var plothidden=true
+function button_switch_stats() {
+    console.log("Pressed stats button");
+    
+    if( plothidden == true ) 
+	plothidden = false;
+    else 
+	plothidden = true;
+
+    set_data_visible();
     regenerate_results();
 }
 

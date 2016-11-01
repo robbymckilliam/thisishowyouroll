@@ -36,13 +36,22 @@
       }
     </style>
     
+    <div id="helpcontainer" class="container">
+      <div class="well">
+	<strong>Examples:</strong><br>
+	&nbsp&nbsp&nbsp&nbsp 12 with 4d4 + 4 or 2d8 + d6 + 2 or 2d12 + d6 <br>
+	&nbsp&nbsp&nbsp&nbsp 10 with d8 + d6 where 1 is 3 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp (dogslicer) <br>
+	&nbsp&nbsp&nbsp&nbsp 10 with 4d4 iffail 2d8 + d4 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp (vicious trident)
+      </div>
+    </div>
+
     <div id="plotcontainer" class="container hidden">
       <div class="well" style="padding: 10px 1px; padding-right: 15px">
 	<div id="pmfplot"></div>
       </div>
     </div>
-
-    <div id="diceresultsontainer"  class="container">
+    
+    <div id="diceresultsontainer"  class="container hidden">
       <div class="well">
 	<div id="requiredroll"></div>
 	<table class="table table-condensed">
@@ -101,7 +110,7 @@
 
   // support input query string
   document.getElementById("rollstring").value = window.location.search.substring(1);
-
+  
   // Keypresses go to form
   document.getElementById("rollform").addEventListener('keyup', function(e) {
 //    console.log("Submitted test " + document.getElementById("rollstring").value);
