@@ -190,6 +190,7 @@ function process_dice(inputstring) {
     var num_rolls = 1;      //number of rolls (1 if ommited)
     if( dice[0].length != 0 ) {
 	num_rolls = dice[0];
+	if( !is_number(num_rolls) ) throw "<strong><span style=\"color: red;\">Error:</span></strong> invalid number of rolls \"" + num_rolls + "\""
     }
     // if not "dD" component then assume D=1
     // eg  4d6+1 interpretted as 4d6+1d1
@@ -233,6 +234,7 @@ function conv(x,y) {
 function modifiedDiceProbability(inputstring) {
     var dice = inputstring.split("where");
     var dice_type = dice[0];
+    if( !is_number(dice_type) ) throw "<strong><span style=\"color: red;\">Error:</span></strong> invalid dice \"" + dice_type + "\""
     var prob = standardDiceProbability(dice_type);
     for( var i = 1; i < dice.length; i++ ) {  
 	prob = modifyDice(prob, dice[i]);
@@ -244,10 +246,14 @@ function modifyDice(prob, modifier) {
     var dice = modifier.split("is");
 
     if( dice.length != 2 ) 
-	throw "<strong>Error:</strong> keyword <strong>where</strong> without <strong>is</strong>";
+	throw "<strong><span style=\"color: red;\">Error:</span></strong> keyword <strong>where</strong> without <strong>is</strong>";
     
-    var a = parseInt(dice[0]);
-    var b = parseInt(dice[1]);
+    var a = dice[0];
+    var b = dice[1];
+
+    if( !is_number(a) ) throw "<strong><span style=\"color: red;\">Error:</span></strong> invalid string \"" + a + "\" before keyword <strong>is</strong>"
+    if( !is_number(b) ) throw "<strong><span style=\"color: red;\">Error:</span></strong> invalid string \"" + b + "\" after keyword <strong>is</strong>"
+    
     prob[b] = prob[a] + prob[b];
     prob[a] = 0.0;
     return prob;
