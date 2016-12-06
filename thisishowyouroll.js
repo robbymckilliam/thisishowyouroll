@@ -65,6 +65,13 @@ function process_requirements(inputstring) {
     } 
 
     var isplit = inputstring.split("with");
+
+    // error if not one "with" keyword
+    if( isplit.length != 2 ) {
+	document.getElementById("requiredroll").innerHTML += "<strong><span style=\"color: red;\">Error:</span></strong> keyword <strong>with</strong> must occur once<br>";
+	return;
+    }
+    
     var required = isplit[0];
     var rolls = isplit[1];
     	document.getElementById("requiredroll").innerHTML += "<strong>Require:</strong> " + required + "<br>";
@@ -86,12 +93,16 @@ function process_all_dice_rolls(inputstring, required) {
 
 	if( plothidden == false )
 	    plot_success_prob(rolls[i]);
-	
-	var succprob = process_multiple_rolls(rolls[i],required);
-	document.getElementById("diceresults").innerHTML += "<tr><td>" + rolls[i] + "</td><td>" + succprob + " </td></tr>";
-	if( succprob > bestprob ) {
-	    bestprob = succprob;
-	    bestroll = rolls[i];
+
+	try {
+	    var succprob = process_multiple_rolls(rolls[i],required);
+	    document.getElementById("diceresults").innerHTML += "<tr><td>" + rolls[i] + "</td><td>" + succprob + "</td></tr>";
+	    if( succprob > bestprob ) {
+		bestprob = succprob;
+		bestroll = rolls[i];
+	    }
+	} catch(err) {
+	    document.getElementById("diceresults").innerHTML += "<tr><td>" + rolls[i] + "</td><td>" + err + "</td></tr>";
 	}
 	
     }
@@ -168,8 +179,7 @@ function process_dice_roll(input) {
     for (var i in rolls) {
 	var rollprob = process_dice(rolls[i]);
 	prob = conv(prob, rollprob);
-    }
-    
+    }    
     return prob;
 }
 
@@ -232,8 +242,12 @@ function modifiedDiceProbability(inputstring) {
 
 function modifyDice(prob, modifier) {
     var dice = modifier.split("is");
-    var a = dice[0];
-    var b = dice[1];
+
+    if( dice.length != 2 ) 
+	throw "<strong>Error:</strong> keyword <strong>where</strong> without <strong>is</strong>";
+    
+    var a = parseInt(dice[0]);
+    var b = parseInt(dice[1]);
     prob[b] = prob[a] + prob[b];
     prob[a] = 0.0;
     return prob;
@@ -476,14 +490,23 @@ function test_dice_cmf() {
     if( cmf[3] != 0.75 ) document.write(failstring);    
     if( cmf[4] != 1.0 ) document.write(failstring);    
 
+}
+
+function test_parseInt() {    
+    var failstring = "<br>parseInt test FAILED!";
+  
+    if( parseInt("2") != 2 ) document.write(failstring);
+    if( parseInt("3") != 3 ) document.write(failstring);
+    if( parseInt("-4") != -4 ) document.write(failstring);
+    if( parseInt("1.3") != 1 ) document.write(failstring);
 
 }
 
 
 // run a bunch of tests to finish off
-test_modifyDice();
-test_modifiedDiceProbability();
-test_process_dice();
-test_iffail();
-test_dice_cmf();
-
+//test_modifyDice();
+//test_modifiedDiceProbability();
+//test_process_dice();
+//test_iffail();
+//test_dice_cmf();
+//test_parseInt();
