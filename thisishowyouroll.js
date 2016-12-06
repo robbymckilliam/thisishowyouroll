@@ -279,6 +279,11 @@ function set_data_visible() {
     }
 }
 
+/// Returns true if x is a string containing only numbers, otherwise false
+function is_number(x) {
+    return /^\d+$/.test(x);
+}
+
 var plothidden=true
 function button_switch_stats() {
     console.log("Pressed stats button");
@@ -492,13 +497,14 @@ function test_dice_cmf() {
 
 }
 
-function test_parseInt() {    
-    var failstring = "<br>parseInt test FAILED!";
+function test_is_number() {    
+    var failstring = "<br>is number test FAILED!";
   
-    if( parseInt("2") != 2 ) document.write(failstring);
-    if( parseInt("3") != 3 ) document.write(failstring);
-    if( parseInt("-4") != -4 ) document.write(failstring);
-    if( parseInt("1.3") != 1 ) document.write(failstring);
+    if( is_number("2") != true ) document.write(failstring);
+    if( is_number("3") != true ) document.write(failstring);
+    if( is_number("-4") != false ) document.write(failstring);
+    if( is_number("1.3") != false ) document.write(failstring);
+    if( is_number("asf") != false ) document.write(failstring);
 
 }
 
@@ -509,4 +515,4 @@ function test_parseInt() {
 //test_process_dice();
 //test_iffail();
 //test_dice_cmf();
-//test_parseInt();
+//test_is_number();
