@@ -76,6 +76,7 @@ function process_requirements(inputstring) {
     var rolls = isplit[1];
     	document.getElementById("requiredroll").innerHTML += "<strong>Require:</strong> " + required + "<br>";
     var bestroll = process_all_dice_rolls(rolls, required);
+    console
     if( bestroll[1] > 0.5 ) {
 		document.getElementById("bestroll").innerHTML += "<strong>You should roll</strong> " + bestroll[0];
     }
@@ -93,9 +94,9 @@ function process_all_dice_rolls(inputstring, required) {
 
 	if( plothidden == false )
 	    plot_success_prob(rolls[i]);
-
 	try {
 	    var succprob = process_multiple_rolls(rolls[i],required);
+
 	    document.getElementById("diceresults").innerHTML += "<tr><td>" + rolls[i] + "</td><td>" + succprob + "</td></tr>";
 	    if( succprob > bestprob ) {
 		bestprob = succprob;
@@ -106,7 +107,7 @@ function process_all_dice_rolls(inputstring, required) {
 	}
 	
     }
-    return [bestroll,  succprob];
+    return [bestroll,  bestprob];
 }
 
 function plot_success_prob(roll) {
