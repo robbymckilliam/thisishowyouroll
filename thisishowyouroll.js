@@ -196,9 +196,10 @@ function process_dice(inputstring) {
     // if not "dD" component then assume D=1
     // eg  4d6+1 interpretted as 4d6+1d1
     var dice_type = "1";
-    if( dice.length > 1 ) {
+    if( dice.length == 2 ) {
 	dice_type = dice[1]; // type of dice
     }
+    if ( dice.length > 2 ) throw "<strong><span style=\"color: red;\">Error:</span></strong> Invalid dice, consequetive d's "
     var dprob = modifiedDiceProbability(dice_type);
     var prob = [1.0];
     for(var i = 0; i < num_rolls; i++) {
