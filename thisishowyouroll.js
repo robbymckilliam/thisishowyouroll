@@ -397,6 +397,7 @@ function button_BACK() {
 /// Some tests
 
 function test_modifyDice() {
+    console.log("Running modify dice test");
     //document.write("<br><br>modifyDice test running<br>");
     var prob1 = modifyDice([0,0.5,0.5], "1is2");
     if( prob1[0] != 0 ) document.write("<br>modifyDice test FAILED!<br>");
@@ -404,7 +405,8 @@ function test_modifyDice() {
     if( prob1[2] != 1 ) document.write("modifyDice test FAILED!<br>");
 }
 
-function test_modifiedDiceProbability() {    
+function test_modifiedDiceProbability() {
+    console.log("Running modified dice test");
     var failstring = "<br>modifiedDiceProbability test FAILED!";
 
     var prob = modifiedDiceProbability("2");
@@ -418,7 +420,8 @@ function test_modifiedDiceProbability() {
     if( prob[2] != 1 ) document.write(failstring);    
 }
 
-function test_iffail() {    
+function test_iffail() {
+    console.log("Running if fail test");
     var failstring = "<br>iffail test FAILED!";
   
     var prob = process_multiple_rolls("2iffail1", 1);
@@ -435,6 +438,7 @@ function test_iffail() {
 }
 
 function test_process_dice() {
+    console.log("Running process dice test");
     var failstring = "<br>process dice FAILED!";
     var prob = process_dice("1d2");
     if( prob[0] != 0 ) document.write(failstring);
@@ -470,6 +474,7 @@ function test_process_dice() {
 }
 
 function test_dice_cmf() {
+    console.log("Running cmf test");
     var failstring = "<br>cmf test FAILED!";
     var cmf = dice_roll_cmf("1d2");
     if( cmf[0] != 0 ) document.write(failstring);
@@ -506,9 +511,10 @@ function test_dice_cmf() {
 
 }
 
-function test_is_number() {    
+function test_is_number() {
+    console.log("Running is number test");
     var failstring = "<br>is number test FAILED!";
-  
+
     if( is_number("2") != true ) document.write(failstring);
     if( is_number("3") != true ) document.write(failstring);
     if( is_number("-4") != false ) document.write(failstring);
@@ -518,10 +524,10 @@ function test_is_number() {
 }
 
 
-// run a bunch of tests to finish off
-//test_modifyDice();
-//test_modifiedDiceProbability();
-//test_process_dice();
-//test_iffail();
-//test_dice_cmf();
-//test_is_number();
+// run a bunch of tests on page load
+test_modifyDice();
+test_modifiedDiceProbability();
+test_process_dice();
+test_iffail();
+test_dice_cmf();
+test_is_number();
