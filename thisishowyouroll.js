@@ -187,11 +187,12 @@ function process_dice_roll(input) {
 // splits DnD dice notation, e.g., 4d6 into number of rolls
 // and dice. Returns probability distribution.
 function process_dice(inputstring) {
+    if( inputstring.length == 0 ) throw "<strong><span style=\"color: red;\">Error:</span></strong> Empty dice"
     var dice = inputstring.split("d");
     var num_rolls = 1;      //number of rolls (1 if ommited)
     if( dice[0].length != 0 ) {
 	num_rolls = dice[0];
-	if( !is_number(num_rolls) ) throw "<strong><span style=\"color: red;\">Error:</span></strong> invalid number of rolls \"" + num_rolls + "\""
+	if( !is_number(num_rolls) ) throw "<strong><span style=\"color: red;\">Error:</span></strong> invalid number of dice \"" + num_rolls + "\""
     }
     // if not "dD" component then assume D=1
     // eg  4d6+1 interpretted as 4d6+1d1
@@ -199,7 +200,7 @@ function process_dice(inputstring) {
     if( dice.length == 2 ) {
 	dice_type = dice[1]; // type of dice
     }
-    if ( dice.length > 2 ) throw "<strong><span style=\"color: red;\">Error:</span></strong> Invalid dice, consequetive d's "
+    if ( dice.length > 2 ) throw "<strong><span style=\"color: red;\">Error:</span></strong> Invalid dice, consequetive d's"
     var dprob = modifiedDiceProbability(dice_type);
     var prob = [1.0];
     for(var i = 0; i < num_rolls; i++) {
@@ -208,7 +209,7 @@ function process_dice(inputstring) {
     return prob;
 }
 
-// discrete convolvution of two arrays
+// discrete convolution of two arrays
 function conv(x,y) {
     function inner(n) {
 	var sum=0;
